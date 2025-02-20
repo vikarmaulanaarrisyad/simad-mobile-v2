@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simad_mobile_v2/core/theme/theme.dart';
+import 'package:simad_mobile_v2/core/utils/snackbar_util.dart';
 
 import 'package:simad_mobile_v2/core/utils/validators/validator.dart';
 import 'package:simad_mobile_v2/presentation/auth/screens/forgot_password.dart';
@@ -11,10 +12,12 @@ class LoginForm extends StatelessWidget {
     super.key,
     required this.formKey,
     required this.emailController,
+    required this.passwordController,
   });
 
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
+  final TextEditingController passwordController;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +59,7 @@ class LoginForm extends StatelessWidget {
             prefixIcon: Icons.lock_outline,
             isPassword: true,
             validator: (value) => TValidator.validatePassoword(value),
+            controller: passwordController,
           ),
           Align(
             alignment: Alignment.centerRight,
@@ -79,7 +83,17 @@ class LoginForm extends StatelessWidget {
             text: "Login",
             onPressed: () {
               if (formKey.currentState!.validate()) {
-                // Handle login logic here
+                SnackbarUtil.show(
+                  context,
+                  message: "Login gagal! Periksa kembali inputan Anda.",
+                  type: SnackBarType.success, // Tampilkan error
+                );
+              } else {
+                SnackbarUtil.show(
+                  context,
+                  message: "Login gagal! Periksa kembali inputan Anda.",
+                  type: SnackBarType.error, // Tampilkan error
+                );
               }
             },
           ),

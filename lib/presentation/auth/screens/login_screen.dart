@@ -10,23 +10,25 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: SingleChildScrollView(
         child: SizedBox(
-          height: MediaQuery.of(context).size.height,
+          height: screenHeight,
           child: Stack(
             children: [
               Positioned(
                 top: 0,
                 left: 0,
                 right: 0,
-                height: MediaQuery.of(context).size.height * 0.35,
+                height: screenHeight * 0.35,
                 child: Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
@@ -41,7 +43,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   child: const Stack(
                     children: [
-                      QClippart(),
+                      Positioned(
+                        top: -50,
+                        right: -50,
+                        child: QClippart(),
+                      ),
                       Positioned(
                         top: 40,
                         left: 16,
@@ -53,15 +59,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Text(
                                   'Welcome back',
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold),
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              width: 40.0,
-                            ),
+                            SizedBox(width: 40.0),
                           ],
                         ),
                       ),
@@ -70,24 +75,29 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height * 0.20,
+                top: screenHeight * 0.20,
                 left: 24,
                 right: 24,
                 child: Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 20,
-                            offset: const Offset(0, 10))
-                      ]),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 20,
+                        offset: const Offset(0, 10),
+                      ),
+                    ],
+                  ),
                   child: LoginForm(
-                      formKey: formKey, emailController: emailController),
+                    formKey: formKey,
+                    emailController: emailController,
+                    passwordController: passwordController,
+                  ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -97,22 +107,16 @@ class _LoginScreenState extends State<LoginScreen> {
 }
 
 class QClippart extends StatelessWidget {
-  const QClippart({
-    super.key,
-  });
+  const QClippart({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      top: -50,
-      right: -50,
-      child: Container(
-        height: 150,
-        width: 150,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white.withOpacity(0.1),
-        ),
+    return Container(
+      height: 150,
+      width: 150,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white.withOpacity(0.1),
       ),
     );
   }
