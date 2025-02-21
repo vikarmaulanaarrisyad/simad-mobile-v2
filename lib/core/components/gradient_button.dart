@@ -3,7 +3,7 @@ import 'package:simad_mobile_v2/core/theme/theme.dart';
 
 class GradientButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final List<Color> gradient;
   final double? width;
   final double height;

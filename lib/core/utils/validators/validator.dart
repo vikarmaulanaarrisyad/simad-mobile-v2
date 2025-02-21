@@ -32,10 +32,10 @@ class TValidator {
       return 'Password must be at latest 6 characters long.';
     }
 
-    // cek uppercase
-    if (!value.contains(RegExp(r'[A-Z]'))) {
-      return 'Password must contain at latest one uppercase letter.';
-    }
+    // // cek uppercase
+    // if (!value.contains(RegExp(r'[A-Z]'))) {
+    //   return 'Password must contain at latest one uppercase letter.';
+    // }
 
     return null;
   }
